@@ -7,13 +7,9 @@ const app = express();
 
 // public dir
 app.use(express.static(path.resolve(__dirname + '/public')));
-console.log(path.resolve(__dirname + '/public'))
 
-//app.get('/', (req, res) => {
-//  res.json({
-//    ok: true
-//  });
-//});
+// routes
+app.use('/api/auth', require('./routes/auth'));
 
 app.listen(PORT, () => {
   console.log(`Run server in PORT ${PORT}`);
