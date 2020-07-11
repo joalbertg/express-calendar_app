@@ -31,10 +31,25 @@ docker-compose run app yarn
 ├── src
 │   ├── config
 │   │   └── index.js
+│   ├── controllers
+│   │   ├── auth.js
+│   │   └── index.js
+│   ├── helpers
+│   │   ├── database.js
+│   │   └── http-errors.js
+│   ├── middlewares
+│   │   └── validate-fields.js
+│   ├── models
+│   │   └── User.js
+│   ├── public
+│   │   ├── index.html
+│   │   └── styles.css
+│   ├── routes
+│   │   └── auth.js
 │   └── server.js
 └── yarn.lock
 
-2 directories, 7 files
+8 directories, 16 files
 ```
 
 ### Start project
