@@ -24,6 +24,7 @@ router.post(
   ],
   loginUser
 );
+
 router.post(
   '/new',
   [ // middlewares
@@ -34,6 +35,7 @@ router.post(
   ],
   createUser
 );
+
 router.post('/renew', revalidateToken);
 
 module.exports = router;

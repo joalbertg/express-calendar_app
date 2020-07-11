@@ -1,7 +1,13 @@
 const express = require('express');
 const path = require('path');
+const mongoose = require('mongoose');
 
-const { PORT } = require('./config');
+const {
+  PORT,
+  DB_URI,
+  APPLICATION_NAME,
+  MONGO_OPTS
+} = require('./config');
 
 const app = express();
 
@@ -14,7 +20,14 @@ app.use(express.json());
 // routes
 app.use('/api/auth', require('./routes/auth'));
 
-app.listen(PORT, () => {
-  console.log(`Run server in PORT ${PORT}`);
-});
+mongoose
+  .connect(DB_URI, MONGO_OPTS)
+  .then(() => {
+    console.info('DB Online!!!');
+    app.listen(PORT, () => {
+      console.log(`App: ${APPLICATION_NAME}`);
+      console.log(`Listening in PORT ${PORT}`);
+    });
+  })
+  .catch(console.error);
 
