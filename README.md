@@ -4,7 +4,7 @@
 
 Without packages
 ```shell
-docker-compose run app yarn add express
+docker-compose run app yarn add express express-validator
 docker-compose run app yarn add nodemon dotenv --dev
 ```
 
