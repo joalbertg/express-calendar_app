@@ -63,7 +63,16 @@ router.put(
   update
 );
 
-router.delete('/:id', _delete);
+router.delete(
+  '/:id',
+  [
+    param('id')
+      .isLength({ min: 24, max: 24 })
+      .withMessage('Param id is required and must be of 24 characters!'),
+    validateFields
+  ],
+  _delete
+);
 
 module.exports = router;
 

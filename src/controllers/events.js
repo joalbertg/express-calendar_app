@@ -84,11 +84,24 @@ const update = async (req, res = response) => {
   }
 }
 
-const _delete = (req, res = response) => {
-  res.json({
-    ok: true,
-    message: 'delete'
-  });
+const _delete = async (req, res = response) => {
+  try {
+    const { uid } = req;
+    const { id } = req.params;
+    const event = await Event
+      .findById(id);
+
+    if(!event) return notFoundRequest(null, res, 'Event not found');
+    if(event.user.toString() !== uid) return unauthorizedRequest(null, res, 'Unauthorized');
+
+    await Event.findByIdAndDelete(id);
+    res.json({
+      ok: true
+    });
+  } catch(error) {
+    console.log(error);
+    return serverError(null, res, 'Server error');
+  }
 }
 
 module.exports = {
