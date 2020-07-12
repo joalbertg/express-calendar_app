@@ -7,6 +7,9 @@ const serverError = (error, res, message) =>
 const forbiddenRequest = (error, res, message) =>
   res.status(403).json(responseBody(error, message));
 
+const unauthorizedRequest = (error, res, message) =>
+  res.status(401).json(responseBody(error, message));
+
 const responseBody = (error, message) => ({
   ok: false,
   error: message ? { message } : error
@@ -15,6 +18,7 @@ const responseBody = (error, message) => ({
 module.exports = {
   badRequest,
   serverError,
-  forbiddenRequest
+  forbiddenRequest,
+  unauthorizedRequest
 };
 

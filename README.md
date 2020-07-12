@@ -2,15 +2,18 @@
 
 - [MongoDB][mongodb]
 - [Mongoose][mongoosejs]
+- [JSON Web Tokens][jwt_io]
 
 [mongodb]: https://account.mongodb.com/account/login
 [mongoosejs]: https://mongoosejs.com/
+[jwt_io]: https://jwt.io/
 
 ### Installs
 
 Without packages
 ```shell
 docker-compose run app yarn add express express-validator mongoose mongoose-unique-validator
+docker-compose run app yarn add bcryptjs jsonwebtoken
 docker-compose run app yarn add nodemon dotenv --dev
 ```
 

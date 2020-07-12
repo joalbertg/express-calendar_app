@@ -26,5 +26,6 @@ module.exports = {
   APPLICATION_NAME: process.env.APPLICATION_NAME,
   MONGO_OPTS,
   DB_URI: getURI(dbObj),
+  SECRET_SEED_TOKEN: process.env.SECRET_SEED_TOKEN
 };
 
