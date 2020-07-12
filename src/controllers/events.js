@@ -3,18 +3,38 @@ const { response } = require('express');
 const Event = require('../models/Event');
 const { serverError } = require('../helpers/http-errors');
 
-const index = (req, res = response) => {
-  res.json({
-    ok: true,
-    message: 'index'
-  });
+const index = async (req, res = response) => {
+  try {
+    const events = await Event
+      .find()
+      .populate();
+
+    res.json({
+      ok: true,
+      events
+    });
+  } catch(error) {
+    console.log(error);
+    return serverError(null, res, 'Server error')
+  }
 }
 
-const show = (req, res = response) => {
-  res.json({
-    ok: true,
-    message: 'show'
-  });
+const show = async (req, res = response) => {
+  try {
+    const { id } = req.params;
+    const event = await Event
+      .findOne({ _id: id })
+      //.populate('user', 'name password');
+      .populate('user', 'name');
+
+    res.json({
+      ok: true,
+      event
+    });
+  } catch(error) {
+    console.log(error);
+    return serverError(null, res, 'Server error')
+  }
 }
 
 const create = async (req, res = response) => {
