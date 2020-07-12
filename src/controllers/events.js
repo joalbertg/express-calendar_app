@@ -1,6 +1,7 @@
 const { response } = require('express');
 
-const { Event } = require('../models/Event');
+const Event = require('../models/Event');
+const { serverError } = require('../helpers/http-errors');
 
 const index = (req, res = response) => {
   res.json({
@@ -16,15 +17,20 @@ const show = (req, res = response) => {
   });
 }
 
-const create = (req, res = response) => {
-  const { title, notes, start, end } = req.body;
+const create = async (req, res = response) => {
+  try {
+    const { title, notes, start, end } = req.body;
+    const event = new Event({ title, notes, start, end, user: { _id: req.uid } });
+    const eventSave = await event.save();
 
-  console.log(title, notes, start, end);
-
-  res.json({
-    ok: true,
-    message: 'create'
-  });
+    res.json({
+      ok: true,
+      eventSave
+    });
+  } catch(error) {
+    console.log(error);
+    return serverError(null, res, 'Server error')
+  }
 }
 
 const update = (req, res = response) => {
