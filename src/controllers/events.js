@@ -1,7 +1,11 @@
 const { response } = require('express');
 
 const Event = require('../models/Event');
-const { serverError } = require('../helpers/http-errors');
+const {
+  notFoundRequest,
+  unauthorizedRequest,
+  serverError
+} = require('../helpers/http-errors');
 
 const index = async (req, res = response) => {
   try {
@@ -53,11 +57,31 @@ const create = async (req, res = response) => {
   }
 }
 
-const update = (req, res = response) => {
-  res.json({
-    ok: true,
-    message: 'update'
-  });
+const update = async (req, res = response) => {
+  try {
+    const { uid } = req;
+    const { id } = req.params;
+    const event = await Event
+      .findById(id);
+
+    if(!event) return notFoundRequest(null, res, 'Event not found');
+    if(event.user.toString() !== uid) return unauthorizedRequest(null, res, 'Unauthorized');
+
+    const newEvent = {
+      ...req.body,
+      user: uid
+    };
+
+    const updatedEvent = await Event.findByIdAndUpdate(id, newEvent, { new: true });
+
+    res.json({
+      ok: true,
+      updatedEvent
+    });
+  } catch(error) {
+    console.log(error);
+    return serverError(null, res, 'Server error')
+  }
 }
 
 const _delete = (req, res = response) => {

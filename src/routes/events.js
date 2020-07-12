@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { check } = require('express-validator');
+const { check, param } = require('express-validator');
 
 const validateJWT = require('../middlewares/validate-jwt');
 const validateFields = require('../middlewares/validate-fields');
@@ -25,21 +25,44 @@ router.use(validateJWT);
 //router.put('/:id', validateJWT, update);
 //router.delete('/:id', validateJWT, _delete);
 
+const validateCreateUpdate = [
+  check('title')
+    .isLength({ min: 3, max: 30 })
+    .withMessage('Title is required and must be of minimum 3 and maximum 30 characters!'),
+  check('start', 'Start date is require').custom(isDate),
+  check('end', 'End date is require').custom(isDate),
+  validateFields
+];
+
 router.get('/', index);
-router.get('/:id', show);
+router.get(
+  '/:id',
+  [
+    param('id')
+      .isLength({ min: 24, max: 24 })
+      .withMessage('Param id is required and must be of 24 characters!'),
+    validateFields
+  ],
+  show
+);
 
 router.post(
   '/',
-  [
-    check('title', 'Title is required and must have a minimum length of 3 characters').isLength({ min: 3, max: 30 }),
-    check('start', 'Start date is require').custom(isDate),
-    check('end', 'End date is require').custom(isDate),
-    validateFields
-  ],
+  validateCreateUpdate,
   create
 );
 
-router.put('/:id', update);
+router.put(
+ '/:id',
+  [
+    param('id')
+      .isLength({ min: 24, max: 24 })
+      .withMessage('Param id is required and must be of 24 characters!'),
+    ...validateCreateUpdate
+  ],
+  update
+);
+
 router.delete('/:id', _delete);
 
 module.exports = router;
