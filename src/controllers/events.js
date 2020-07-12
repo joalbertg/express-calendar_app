@@ -1,5 +1,7 @@
 const { response } = require('express');
 
+const { Event } = require('../models/Event');
+
 const index = (req, res = response) => {
   res.json({
     ok: true,
