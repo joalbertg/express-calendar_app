@@ -41,11 +41,13 @@ docker-compose run app yarn
 │   ├── helpers
 │   │   ├── database.js
 │   │   ├── http-errors.js
+│   │   ├── isDate.js
 │   │   └── jwt.js
 │   ├── middlewares
 │   │   ├── validate-fields.js
 │   │   └── validate-jwt.js
 │   ├── models
+│   │   ├── Event.js
 │   │   └── User.js
 │   ├── public
 │   │   ├── index.html
@@ -56,7 +58,7 @@ docker-compose run app yarn
 │   └── server.js
 └── yarn.lock
 
-8 directories, 20 files
+8 directories, 22 files
 ```
 
 ### Start project
