@@ -1,2 +1,5 @@
-module.exports = { ...require('./auth') };
+module.exports = {
+  ...require('./auth'),
+  Event: require('./events')
+};
 

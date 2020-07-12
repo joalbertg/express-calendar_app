@@ -13,7 +13,7 @@
 Without packages
 ```shell
 docker-compose run app yarn add express express-validator mongoose mongoose-unique-validator
-docker-compose run app yarn add bcryptjs jsonwebtoken
+docker-compose run app yarn add bcryptjs jsonwebtoken cors
 docker-compose run app yarn add nodemon dotenv --dev
 ```
 
@@ -36,24 +36,27 @@ docker-compose run app yarn
 │   │   └── index.js
 │   ├── controllers
 │   │   ├── auth.js
+│   │   ├── events.js
 │   │   └── index.js
 │   ├── helpers
 │   │   ├── database.js
 │   │   ├── http-errors.js
 │   │   └── jwt.js
 │   ├── middlewares
-│   │   └── validate-fields.js
+│   │   ├── validate-fields.js
+│   │   └── validate-jwt.js
 │   ├── models
 │   │   └── User.js
 │   ├── public
 │   │   ├── index.html
 │   │   └── styles.css
 │   ├── routes
-│   │   └── auth.js
+│   │   ├── auth.js
+│   │   └── events.js
 │   └── server.js
 └── yarn.lock
 
-8 directories, 17 files
+8 directories, 20 files
 ```
 
 ### Start project

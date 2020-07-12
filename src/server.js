@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
+const cors = require('cors');
 
 const {
   PORT,
@@ -11,6 +12,9 @@ const {
 
 const app = express();
 
+// CORS
+app.use(cors());
+
 // public dir
 app.use(express.static(path.resolve(__dirname + '/public')));
 
@@ -19,6 +23,7 @@ app.use(express.json());
 
 // routes
 app.use('/api/auth', require('./routes/auth'));
+app.use('/api/events', require('./routes/events'));
 
 mongoose
   .connect(DB_URI, MONGO_OPTS)
