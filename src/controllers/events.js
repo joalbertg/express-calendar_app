@@ -17,6 +17,10 @@ const show = (req, res = response) => {
 }
 
 const create = (req, res = response) => {
+  const { title, notes, start, end } = req.body;
+
+  console.log(title, notes, start, end);
+
   res.json({
     ok: true,
     message: 'create'

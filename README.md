@@ -13,7 +13,7 @@
 Without packages
 ```shell
 docker-compose run app yarn add express express-validator mongoose mongoose-unique-validator
-docker-compose run app yarn add bcryptjs jsonwebtoken cors
+docker-compose run app yarn add bcryptjs jsonwebtoken cors moment
 docker-compose run app yarn add nodemon dotenv --dev
 ```
 

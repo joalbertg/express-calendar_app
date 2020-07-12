@@ -1,7 +1,10 @@
 const { Router } = require('express');
+const { check } = require('express-validator');
 
 const validateJWT = require('../middlewares/validate-jwt');
+const validateFields = require('../middlewares/validate-fields');
 const { Event } = require('../controllers');
+const { isDate } = require('../helpers/isDate');
 
 /*
  * Event routes
@@ -11,7 +14,9 @@ const { Event } = require('../controllers');
 const router = Router();
 const { index, show, create, update, _delete } = Event;
 
-// for all routes
+// others routes without validateJWT
+
+// for all next routes
 router.use(validateJWT);
 
 //router.get('/', validateJWT, index);
@@ -22,7 +27,18 @@ router.use(validateJWT);
 
 router.get('/', index);
 router.get('/:id', show);
-router.post('/', create);
+
+router.post(
+  '/',
+  [
+    check('title', 'Title is required and must have a minimum length of 3 characters').isLength({ min: 3, max: 30 }),
+    check('start', 'Start date is require').custom(isDate),
+    check('end', 'End date is require').custom(isDate),
+    validateFields
+  ],
+  create
+);
+
 router.put('/:id', update);
 router.delete('/:id', _delete);
 
