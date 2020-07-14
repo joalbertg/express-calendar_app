@@ -11,7 +11,7 @@ const index = async (req, res = response) => {
   try {
     const events = await Event
       .find()
-      .populate();
+      .populate('user', 'name');
 
     res.json({
       ok: true,
