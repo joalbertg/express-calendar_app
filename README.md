@@ -8,6 +8,12 @@
 [mongoosejs]: https://mongoosejs.com/
 [jwt_io]: https://jwt.io/
 
+### Frontend repository
+
+[Calendar APP][calendar_app]
+
+[calendar_app]: https://github.com/joalbertg/react-calendar_app
+
 ### Installs
 
 Without packages
